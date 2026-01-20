@@ -4,7 +4,7 @@
  * @brief Contains the declarations for the SocketCAN wrapper in C++.
  * @version 0.1
  * @date 2020-07-01
- * 
+ *
  * @copyright Copyright (c) 2020
  *
  *  Copyright 2020 Simon Cahill
@@ -41,7 +41,7 @@
 
 /**
  * @brief Main library namespace.
- * 
+ *
  * This namespace contains the library's main code.
  */
 namespace sockcanpp {
@@ -53,9 +53,9 @@ namespace sockcanpp {
 
     /**
      * @brief CanDriver class; handles communication via CAN.
-     * 
+     *
      * This class provides the means of easily communicating with other devices via CAN in C++.
-     * 
+     *
      * @remarks
      * This class may be inherited by other applications and modified to suit your needs.
      */
@@ -88,7 +88,7 @@ namespace sockcanpp {
             virtual int32_t sendMessage(const CanMessage message, bool forceExtended = false); ///!< Attempts to send a single CAN message
             virtual int32_t sendMessageQueue(queue<CanMessage> messages,
                                      milliseconds delay = milliseconds(20), bool forceExtended = false); ///!< Attempts to send a queue of messages
-             
+
             virtual queue<CanMessage> readQueuedMessages(); ///!< Attempts to read all queued messages from the bus
 
             virtual void setCanFilterMask(const int32_t mask); ///!< Attempts to set a new CAN filter mask to the BIOS
@@ -107,25 +107,25 @@ namespace sockcanpp {
             int32_t _queueSize; ////!< The size of the message queue read by waitForMessages()
 
             ///!< Mutex for thread-safety.
-            mutex _lock; 
-            mutex _lockSend; 
+            mutex _lock;
+            mutex _lockSend;
 
             string _canInterface; ///!< The CAN interface used for communication (e.g. can0, can1, ...)
 
     };
 
-    
+
 
     /**
      * @brief Formats a std string object.
-     * 
+     *
      * @remarks Yoinked from https://github.com/Beatsleigher/liblogpp :)
-     * 
+     *
      * @tparam Args The formatting argument types.
      * @param format The format string.
      * @param args The format arguments (strings must be converted to C-style strings!)
-     * 
-     * @return string The formatted string. 
+     *
+     * @return string The formatted string.
      */
     template<typename... Args>
     string formatString(const string& format, Args... args)  {

@@ -4,7 +4,7 @@
  * @brief Contains the implementation of a value-type representing a CAN identifier.
  * @version 0.1
  * @date 2020-07-01
- * 
+ *
  * @copyright Copyright (c) 2020 Simon Cahill
  *
  *  Copyright 2020 Simon Cahill
@@ -99,32 +99,32 @@ namespace sockcanpp {
 #pragma region "Comparison Operators"
         bool operator ==(CanId& x)         const { return _identifier == x._identifier; }
         bool operator ==(const CanId& x)   const { return _identifier == x._identifier; }
-        bool operator ==(const int16_t x)  const { return _identifier == x; }
-        bool operator ==(const uint16_t x) const { return _identifier == x; }
-        bool operator ==(const int32_t x)  const { return _identifier == x; }
+        bool operator ==(const int16_t x)  const { return _identifier == static_cast<uint32_t>(x); }
+        bool operator ==(const uint16_t x) const { return _identifier == static_cast<uint32_t>(x); }
+        bool operator ==(const int32_t x)  const { return _identifier == static_cast<uint32_t>(x); }
         bool operator ==(const uint32_t x) const { return _identifier == x; }
-        bool operator ==(const int64_t x)  const { return (x > UINT32_MAX || x < INT32_MIN) ? false : x == _identifier; }
-        bool operator ==(const uint64_t x) const { return x > UINT32_MAX ? false : x == _identifier; }
+        bool operator ==(const int64_t x)  const { return (x > UINT32_MAX || x < INT32_MIN) ? false : static_cast<uint32_t>(x) == _identifier; }
+        bool operator ==(const uint64_t x) const { return x > UINT32_MAX ? false : static_cast<uint32_t>(x) == _identifier; }
         bool operator !=(CanId& x)         const { return _identifier != x._identifier; }
         bool operator !=(const CanId& x)   const { return _identifier != x._identifier; }
-        bool operator !=(const int16_t x)  const { return _identifier != x; }
-        bool operator !=(const uint16_t x) const { return _identifier != x; }
-        bool operator !=(const int32_t x)  const { return _identifier != x; }
+        bool operator !=(const int16_t x)  const { return _identifier != static_cast<uint32_t>(x); }
+        bool operator !=(const uint16_t x) const { return _identifier != static_cast<uint32_t>(x); }
+        bool operator !=(const int32_t x)  const { return _identifier != static_cast<uint32_t>(x); }
         bool operator !=(const uint32_t x) const { return _identifier != x; }
         bool operator !=(const int64_t x)  const { return (x > UINT32_MAX || x < INT32_MIN) ? false : x != _identifier; }
         bool operator !=(const uint64_t x) const { return x > UINT32_MAX ? false : x != _identifier; }
 
         bool operator <(CanId& x)          const { return x._identifier < _identifier; }
-        bool operator <(int32_t x)         const { return x < _identifier; }
+        bool operator <(int32_t x)         const { return static_cast<uint32_t>(x) < _identifier; }
         bool operator <(uint32_t x)        const { return x < _identifier; }
-        bool operator <(int16_t x)         const { return x < _identifier; }
-        bool operator <(uint16_t x)        const { return x < _identifier; }
+        bool operator <(int16_t x)         const { return static_cast<uint32_t>(x) < _identifier; }
+        bool operator <(uint16_t x)        const { return static_cast<uint32_t>(x) < _identifier; }
         bool operator <=(CanId& x)         const { return x._identifier <= _identifier; }
         bool operator >(CanId& x)          const { return x._identifier > _identifier; }
-        bool operator >(int32_t x)         const { return x > _identifier; }
+        bool operator >(int32_t x)         const { return static_cast<uint32_t>(x) > _identifier; }
         bool operator >(uint32_t x)        const { return x > _identifier; }
-        bool operator >(int16_t x)         const { return x > _identifier; }
-        bool operator >(uint16_t x)        const { return x > _identifier; }
+        bool operator >(int16_t x)         const { return static_cast<uint32_t>(x) > _identifier; }
+        bool operator >(uint16_t x)        const { return static_cast<uint32_t>(x) > _identifier; }
         bool operator >=(CanId& x)         const { return x._identifier >= _identifier; }
         bool operator <(const CanId& x)    const { return x._identifier < _identifier; }
         bool operator <=(const CanId& x)   const { return x._identifier <= _identifier; }
@@ -170,9 +170,9 @@ namespace sockcanpp {
         public: // +++ Validity Checks +++
             /**
              * @brief Indicates whether or not a given integer is a valid CAN identifier.
-             * 
+             *
              * @param value The integer to check.
-             * 
+             *
              * @return true If value is a valid CAN identifier.
              * @return false Otherwise.
              */
@@ -187,12 +187,12 @@ namespace sockcanpp {
 
                 return (value == 0) /* Default value, also valid ID */ || ((tmpValue <= 29 && tmpValue > 0));
             }
-    
+
             /**
              * @brief Indicates whether or not a given integer contains the error frame flag or not.
-             * 
+             *
              * @param value The integer to check.
-             * 
+             *
              * @return true If value has the error frame flag (bit) set to 1.
              * @return false Otherwise.
              */
@@ -203,9 +203,9 @@ namespace sockcanpp {
 
             /**
              * @brief Indicates whether the received frame is a remote transmission request.
-             * 
+             *
              * @param value The integer to check.
-             * 
+             *
              * @return true If the frame is a remote transmission request.
              * @return false Otherwise.
              */
@@ -224,12 +224,12 @@ namespace sockcanpp {
             bool equals(CanId otherId) const { return *this == otherId; }
 
         private: // +++ Variables +++
+            uint32_t _identifier = 0;
+
             bool _isErrorFrame = false;
             bool _isRemoteTransmissionRequest = false;
             bool _isStandardFrameId = false;
             bool _isExtendedFrameId = false;
-
-            uint32_t _identifier = 0;
     };
 
 }

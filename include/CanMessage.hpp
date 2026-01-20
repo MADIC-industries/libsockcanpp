@@ -4,7 +4,7 @@
  * @brief Contains the implementation of a CAN message representation in C++.
  * @version 0.1
  * @date 2020-07-01
- * 
+ *
  * @copyright Copyright (c) 2020 Simon Cahill
  *
  *  Copyright 2020 Simon Cahill

@@ -82,7 +82,7 @@ namespace sockcanpp {
         CanDriver(canInterface, canProtocol, 0 /* match all */, defaultSenderId) {}
 
     CanDriver::CanDriver(const string canInterface, const int32_t canProtocol, const int32_t filterMask, const CanId defaultSenderId):
-        _defaultSenderId(defaultSenderId), _canProtocol(canProtocol), _canInterface(canInterface), _canFilterMask(filterMask), _socketFd(-1) {
+        _defaultSenderId(defaultSenderId), _canFilterMask(filterMask), _canProtocol(canProtocol), _socketFd(-1), _canInterface(canInterface) {
         initialiseSocketCan();
     }
 #pragma endregion
@@ -141,7 +141,7 @@ namespace sockcanpp {
 	    throw CanException(formatString("FAILED to read from CAN! Error: %d => %s", errno, strerror(errno)), _socketFd);
         return CanMessage{canFrame};
     }
-    
+
     /**
      * @brief Attempts to send a CAN message on the associated bus.
      *

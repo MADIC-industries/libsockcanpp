@@ -4,7 +4,7 @@
  * @brief Contains the implementation of an exception that may be thrown when an error occurs while closing a CAN socket.
  * @version 0.1
  * @date 2020-07-02
- * 
+ *
  * @copyright Copyright (c) 2020 Simon Cahill
  *
  *  Copyright 2020 Simon Cahill
